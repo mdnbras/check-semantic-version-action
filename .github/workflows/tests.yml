@@ -16,5 +16,8 @@ jobs:
     - name: List
       run: ls -la
 
-    - name: Execute
+    - name: Execute Success
       run: ${PWD}/scripts/executable verify -versionOld v0.0.1 -versionNew v0.0.2
+
+    - name: Execute Failed
+      run: ${PWD}/scripts/executable verify -versionOld v0.4.2 -versionNew v0.4.1
