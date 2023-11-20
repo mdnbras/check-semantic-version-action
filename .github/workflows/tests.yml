@@ -13,8 +13,8 @@ jobs:
     - name: Echo
       run: echo ${PWD}
 
-    - name: Execute
-      run: ${PWD}/scripts/executable verify -versionOld v0.0.1 -versionNew v0.0.2
-
     - name: List
       run: ls -la
+
+    - name: Execute
+      run: ${PWD}/scripts/executable verify -versionOld v0.0.1 -versionNew v0.0.2
