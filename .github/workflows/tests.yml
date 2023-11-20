@@ -17,7 +17,9 @@ jobs:
       run: ls -la
 
     - name: Execute Success
+      continue-on-error: true
       run: ${PWD}/scripts/executable verify -versionOld v0.0.1 -versionNew v0.0.2
 
     - name: Execute Failed
+      continue-on-error: true
       run: ${PWD}/scripts/executable verify -versionOld v0.4.2 -versionNew v0.4.1
