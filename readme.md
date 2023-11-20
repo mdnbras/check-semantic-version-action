@@ -7,7 +7,7 @@
 
 #### 2 Terminal
 - `docker ps`
-- `docker cp YOUR_WORKING_CONTAINER_ID:/go/src/checkSemanticVersion/main.zip .`
+- `docker cp YOUR_WORKING_CONTAINER_ID:/go/src/checkSemanticVersion/executable.zip .`
 
 ### Add github permission
 - `git update-index --chmod=+x ./scripts/executable`

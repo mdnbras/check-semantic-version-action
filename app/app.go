@@ -3,8 +3,9 @@ package app
 import (
 	"errors"
 	"fmt"
+	"github.com/hashicorp/go-version"
 	"github.com/urfave/cli"
-	"strconv"
+	"os"
 	"strings"
 )
 
@@ -36,43 +37,35 @@ func Gerar() *cli.App {
 	return app
 }
 
-func transformVersionToInt(version string) (int64, error) {
-	version = strings.Replace(version, "v", "", -1)
-	version = strings.Replace(version, ".", "", -1)
-	v, erro := strconv.ParseInt(version, 10, 64)
+func checkVersion(versionOld string, versionNew string) (bool, error) {
+	versionOld = strings.Replace(versionOld, "v", "", -1)
+	versionNew = strings.Replace(versionNew, "v", "", -1)
 
-	if erro != nil {
-		err := errors.New("falha ao converter a versão para inteiro")
-		if err != nil {
-			return 0, err
-		}
-		return 0, erro
+	v1, err := version.NewVersion(versionOld)
+	if err != nil {
+		return false, err
 	}
 
-	return v, nil
+	v2, err := version.NewVersion(versionNew)
+	if err != nil {
+		return false, err
+	}
+
+	if v1.LessThan(v2) {
+		return true, nil
+	}
+
+	return false, errors.New("versão atual é menor ou igual a versão anterior")
 }
 
 func verificarVersao(c *cli.Context) {
 	versionOld := c.String("versionOld")
 	versionNew := c.String("versionNew")
 
-	var v1, v2 int64
-	var erro error
-
-	v1, erro = transformVersionToInt(versionOld)
-	v2, erro = transformVersionToInt(versionNew)
+	_, erro := checkVersion(versionOld, versionNew)
 
 	if erro != nil {
 		fmt.Println("::error file=app.go,line=66::", erro)
-		return
+		os.Exit(1)
 	}
-
-	if v1 > v2 {
-		fmt.Println("::error file=app.go,line=74::Versão atual deve ser maior do que a anterior")
-	}
-
-	if v1 == v2 {
-		fmt.Println("::error file=app.go,line=78::Versão atual não pode ser igual a anterior")
-	}
-
 }
