@@ -11,3 +11,6 @@
 
 ### Add github permission
 - `git update-index --chmod=+x ./scripts/executable`
+
+### How to use
+- `./scripts/executable verify -versionOld v0.0.1 -versionNew v0.0.2`
