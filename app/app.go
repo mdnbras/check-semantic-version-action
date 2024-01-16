@@ -203,7 +203,7 @@ func commitVerificationPatterns(c *cli.Context) {
 		//fmt.Printf("Commit: %s\n", commit.GetSHA())
 		//fmt.Printf("Message: %s\n", commitDetails.GetMessage())
 
-		regexPattern := "(feat|chore|refactor|style|fix|docs|build|perf|ci|revert)([\\(])([\\#0-9]+)([\\)\\: ]+)(\\W|\\w)+"
+		regexPattern := "(feat|chore|refactor|style|fix|docs|doc|build|perf|ci|revert)([\\(])([\\#0-9]+)([\\)\\: ]+)(\\W|\\w)+"
 
 		ok, erro := Check(commitDetails.GetMessage(), regexPattern)
 		if erro != nil {
