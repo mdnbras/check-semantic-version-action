@@ -82,6 +82,10 @@ func Gerar() *cli.App {
 					Value: "my-merge-request-identifier",
 				},
 				cli.StringFlag{
+					Name:  "bypass",
+					Value: "bypass",
+				},
+				cli.StringFlag{
 					Name:  "gbtoken",
 					Value: "personal_access_token",
 				},
@@ -173,6 +177,11 @@ func commitVerificationPatterns(c *cli.Context) {
 	repo := c.String("repository")
 	accessToken := c.String("gbtoken")
 	prNumber := c.Int("merge_request_id")
+	bypass := c.String("bypass")
+
+	if bypass == "YES" {
+		return
+	}
 
 	ctx := context.Background()
 
