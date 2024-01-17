@@ -16,7 +16,11 @@ jobs:
   build:
     strategy:
       matrix:
-        runs-on: [ubuntu-latest, macos-latest, windows-latest]
+        runs-on: [
+          ubuntu-latest
+#          macos-latest,
+#          windows-latest
+        ]
     runs-on: ${{ matrix.runs-on }}
     steps:
       - uses: actions/checkout@v4
@@ -24,7 +28,7 @@ jobs:
         with:
           go-version: '1.21'
       - run: go build -v -o dist/main
-      - uses: actions/upload-artifact@v2.3.1
+      - uses: actions/upload-artifact@v4
         with:
           name: main-${{ matrix.runs-on }}
           path: dist/main
@@ -36,12 +40,12 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: main-ubuntu-latest
-          path: main-ubuntu-latest
-      - uses: actions/download-artifact@v4
-        with:
-          name: main-macos-latest
-          path: main-macos-latest
-      - uses: actions/download-artifact@v4
-        with:
-          name: main-windows-latest
-          path: main-windows-latest
+          path: dist/main
+#      - uses: actions/download-artifact@v4
+#        with:
+#          name: main-macos-latest
+#          path: main-macos-latest
+#      - uses: actions/download-artifact@v4
+#        with:
+#          name: main-windows-latest
+#          path: main-windows-latest
