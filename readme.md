@@ -16,4 +16,4 @@
 
 - `./scripts/executable verify -versionOld v0.0.1 -versionNew v0.0.2`
 - `./scripts/executable update-github-vars -owner OWNER -repository REPOSITORY -varName VAR_NAME -varValue VAR_VALUE -gbtoken PA_TOKEN`
-- `./scripts/executable commits-verify -owner OWNER -repository REPOSITORY -merge_request_id 65  -gbtoken PA_TOKEN`
+- `./scripts/executable commits-verify -owner OWNER -repository REPOSITORY -merge_request_id 65 -bypass NO -gbtoken PA_TOKEN`

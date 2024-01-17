@@ -1,0 +1,25 @@
+name: 'GitOps Manager'
+description: 'The GitOps Manager Utility is a powerful tool designed to simplify and automate common tasks related to Git repository management and continuous integration operations.'
+inputs:
+  command:
+    description: 'Command'
+    required: true
+  owner:
+    description: 'Github username'
+    required: true
+  repository:
+    description: 'Github repository name'
+    required: true
+  mergeRequestId:
+    description: 'Github current merge request identifier'
+    required: true
+  gbtoken:
+    description: 'Github your personal access token'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+#  using: 'composite'
+#  steps:
+#    - run: ./scripts/executable
+#      shell: bash
