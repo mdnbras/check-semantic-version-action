@@ -15,7 +15,7 @@ jobs:
         command: 'commits-verify'
         owner: 'mdnbras'
         repository: 'check-semantic-version-action'
-        mergeRequestId: ${{ github.event.number }}
+        mergeRequestId: 3
         gbtoken: ${{ secrets.PA_TOKEN }}
         bypass: 'NO'
 

@@ -15,7 +15,7 @@ func CommitVerificationPatterns() {
 	owner, _ := core.GetInput("owner")
 	repo, _ := core.GetInput("repository")
 	accessToken, _ := core.GetInput("gbtoken")
-	prNumberStr, _ := core.GetInput("merge_request_id")
+	prNumberStr, _ := core.GetInput("mergeRequestId")
 	bypass, _ := core.GetInput("bypass")
 
 	prNumber, _ := strconv.Atoi(prNumberStr)
