@@ -7,11 +7,6 @@ import (
 )
 
 func main() {
-	//aplicacao := app.Gerar()
-	//if err := aplicacao.Run(os.Args); err != nil {
-	//	fmt.Println(err)
-	//}
-
 	command, ok := core.GetInput("command")
 	if !ok {
 		fmt.Println("Invalid command input")
