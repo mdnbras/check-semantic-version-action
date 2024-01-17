@@ -13,6 +13,10 @@ inputs:
   mergeRequestId:
     description: 'Github current merge request identifier'
     required: true
+  bypass:
+    description: 'bypass of execution of command'
+    required: false
+    default: 'NO'
   gbtoken:
     description: 'Github your personal access token'
     required: true
