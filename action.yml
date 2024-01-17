@@ -24,9 +24,5 @@ inputs:
     description: 'Github your personal access token'
     required: true
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
-#  using: 'composite'
-#  steps:
-#    - run: ./scripts/executable
-#      shell: bash
+  using: docker
+  image: Dockerfile
