@@ -1,5 +1,8 @@
 name: 'GitOps Manager'
 description: 'The GitOps Manager Utility'
+branding:
+  icon: box
+  color: blue
 inputs:
   command:
     description: 'Command'
