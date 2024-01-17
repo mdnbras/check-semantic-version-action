@@ -1,5 +1,5 @@
 name: 'GitOps Manager'
-description: 'The GitOps Manager Utility is a powerful tool designed to simplify and automate common tasks related to Git repository management and continuous integration operations.'
+description: 'The GitOps Manager Utility'
 inputs:
   command:
     description: 'Command'
