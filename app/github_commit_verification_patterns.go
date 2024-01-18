@@ -41,6 +41,12 @@ func CommitVerificationPatterns() {
 	// Criação do cliente GitHub
 	client := github.NewClient(tc)
 
+	pr, _, err := client.PullRequests.Get(ctx, owner, repo, prNumber)
+	if err != nil {
+		fmt.Printf("Erro ao obter Pull Request: %v\n", err)
+		os.Exit(1)
+	}
+
 	// Obtém a lista de commits do Pull Request
 	commits, _, err := client.PullRequests.ListCommits(ctx, owner, repo, prNumber, nil)
 	if err != nil {
@@ -50,6 +56,10 @@ func CommitVerificationPatterns() {
 
 	var commitsArr []string
 
+	commitsArr = append(commitsArr, "PR Aberta Por: "+pr.User.GetName())
+
+	existsErro := false
+
 	// Itera sobre os commits e imprime as mensagens
 	for _, commit := range commits {
 		commitDetails, _, err := client.Git.GetCommit(ctx, owner, repo, commit.GetSHA())
@@ -57,8 +67,6 @@ func CommitVerificationPatterns() {
 			fmt.Printf("Erro ao obter detalhes do commit %s: %v\n", commit.GetSHA(), err)
 			continue
 		}
-
-		commitsArr = append(commitsArr, "PR Aberta Por: "+commitDetails.GetAuthor().GetName())
 
 		//fmt.Printf("Commit: %s\n", commit.GetSHA())
 		//fmt.Printf("Message: %s\n", commitDetails.GetMessage())
@@ -74,6 +82,7 @@ func CommitVerificationPatterns() {
 			fmt.Println("::error file=github_commit_verification_patterns.go,line=74:: %s", fmt.Sprintf("Commit fora de padrão: %s\n", commitDetails.GetMessage()))
 			commitsArr = append(commitsArr, fmt.Sprintf("Commit fora de padrão: **%s**", commitDetails.GetMessage()))
 			//os.Exit(1)
+			existsErro = true
 		}
 
 		//fmt.Println(ok)
@@ -82,7 +91,7 @@ func CommitVerificationPatterns() {
 
 	justString := strings.Join(commitsArr, "\n")
 
-	if urlWebhook != "" {
+	if urlWebhook != "" && existsErro {
 		sendDiscordMessage(urlWebhook, justString)
 	}
 }

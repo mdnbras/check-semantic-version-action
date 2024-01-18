@@ -1,19 +1,18 @@
-# Check Semantic Version 
+# Utilities for GitOps
 
-### generation executable linux and extract zip file
-#### 1 terminal 
-- `docker build -t daniel101/check-semantic-version .`
-- `docker run -it daniel101/check-semantic-version`
+The GitOps Manager Utility is a powerful tool designed to simplify and automate common tasks related to Git repository management and continuous integration operations. With an intuitive command-line interface, it provides features such as version verification, updating GitHub variables, and validating commits in merge requests. Through this utility, streamline your GitOps workflow and enhance your team's efficiency in the development and deployment of projects.
 
-#### 2 Terminal
-- `docker ps`
-- `docker cp YOUR_WORKING_CONTAINER_ID:/go/src/checkSemanticVersion/executable.zip .`
+### commits-verify
 
-### Add github permission
-- `git update-index --chmod=+x ./scripts/executable`
-
-### How to use
-
-- `./scripts/executable verify -versionOld v0.0.1 -versionNew v0.0.2`
-- `./scripts/executable update-github-vars -owner OWNER -repository REPOSITORY -varName VAR_NAME -varValue VAR_VALUE -gbtoken PA_TOKEN`
-- `./scripts/executable commits-verify -owner OWNER -repository REPOSITORY -merge_request_id 65 -bypass NO -gbtoken PA_TOKEN`
+```yaml
+  - name: Check Commits Pattern
+    uses: mdnbras/check-semantic-version-action@v1
+    with:
+      command: 'commits-verify' # command
+      owner: 'encibralabs' # github owner
+      repository: 'gapus-frontend' # github repository
+      mergeRequestId: 10 # Merge request identifier
+      gbtoken: '' # access personal token
+      bypass: 'YES' # YES or NO
+      urlWebhook: '' # Discord webhook URL (optional)
+```
