@@ -18,6 +18,7 @@ jobs:
         mergeRequestId: 3
         gbtoken: ${{ secrets.PA_TOKEN }}
         bypass: 'NO'
+        urlWebhook: ${{ secrets.DISCORD_WEBHOOK }}
 
 #    - name: Echo
 #      run: echo ${PWD}

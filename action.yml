@@ -23,6 +23,10 @@ inputs:
   gbtoken:
     description: 'Github your personal access token'
     required: true
+  urlWebhook:
+    description: 'Discord chat webhook'
+    required: false
+    default: ''
 runs:
   using: docker
   image: Dockerfile
