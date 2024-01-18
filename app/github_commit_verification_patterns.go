@@ -56,7 +56,7 @@ func CommitVerificationPatterns() {
 
 	var commitsArr []string
 
-	commitsArr = append(commitsArr, fmt.Sprintf("PR Aberta Por: %v", pr.User.Name))
+	commitsArr = append(commitsArr, fmt.Sprintf("PR Aberta Por: %v", pr.User.Login))
 
 	existsErro := false
 
