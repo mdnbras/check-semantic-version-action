@@ -56,7 +56,7 @@ func CommitVerificationPatterns() {
 
 	var commitsArr []string
 
-	commitsArr = append(commitsArr, "PR Aberta Por: "+pr.User.GetName())
+	commitsArr = append(commitsArr, fmt.Sprintf("PR Aberta Por: %v", pr.User.Name))
 
 	existsErro := false
 
@@ -79,7 +79,7 @@ func CommitVerificationPatterns() {
 		}
 
 		if !ok {
-			fmt.Println("::error file=github_commit_verification_patterns.go,line=74:: %s", fmt.Sprintf("Commit fora de padrão: %s\n", commitDetails.GetMessage()))
+			fmt.Printf("::error file=github_commit_verification_patterns.go,line=82:: %s\n", fmt.Sprintf("Commit fora de padrão: %s\n", commitDetails.GetMessage()))
 			commitsArr = append(commitsArr, fmt.Sprintf("Commit fora de padrão: **%s**", commitDetails.GetMessage()))
 			//os.Exit(1)
 			existsErro = true
