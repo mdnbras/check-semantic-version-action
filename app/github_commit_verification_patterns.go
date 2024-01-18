@@ -72,7 +72,7 @@ func CommitVerificationPatterns() {
 
 		if !ok {
 			fmt.Println("::error file=github_commit_verification_patterns.go,line=74:: %s", fmt.Sprintf("Commit fora de padrão: %s\n", commitDetails.GetMessage()))
-			commitsArr = append(commitsArr, fmt.Sprintf("Commit fora de padrão: %s\n", commitDetails.GetMessage()))
+			commitsArr = append(commitsArr, fmt.Sprintf("Commit fora de padrão: **%s**", commitDetails.GetMessage()))
 			//os.Exit(1)
 		}
 
