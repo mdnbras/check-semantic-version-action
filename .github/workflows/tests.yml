@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: mdnbras/check-semantic-version-action@master
+    - uses: mdnbras/check-semantic-version-action@v1
       with:
         command: 'commits-verify'
         owner: 'mdnbras'
