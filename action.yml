@@ -27,6 +27,10 @@ inputs:
     description: 'Discord chat webhook'
     required: false
     default: ''
+  regexPattern:
+    description: 'Regex pattern to match commits'
+    required: false
+    default: '(feat|chore|refactor|style|fix|docs|doc|build|perf|ci|revert)([\(])([\#0-9]+)([\)\: ]+)(\W|\w)+'
 runs:
   using: docker
   image: Dockerfile

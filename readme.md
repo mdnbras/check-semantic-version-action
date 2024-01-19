@@ -15,4 +15,5 @@ The GitOps Manager Utility is a powerful tool designed to simplify and automate 
       gbtoken: '' # access personal token
       bypass: 'YES' # YES or NO
       urlWebhook: '' # Discord webhook URL (optional)
+      regexPattern: '' # regex pattern (optional)
 ```
