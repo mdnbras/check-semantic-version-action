@@ -83,7 +83,8 @@ func CommitVerificationPatterns() {
 	if err != nil {
 		return
 	}
-	commitsArr = append(commitsArr, fmt.Sprintf("PR Aberta Por: %s", userLogin))
+	commitsArr = append(commitsArr, "PR Aberta Por: "+userLogin)
+	fmt.Println("::debug::PR Aberta Por: " + userLogin)
 
 	existsErro := false
 
@@ -115,6 +116,7 @@ func CommitVerificationPatterns() {
 	}
 
 	justString := strings.Join(commitsArr, "\n")
+	fmt.Println("::debug::" + justString)
 
 	if urlWebhook != "" && existsErro {
 		sendDiscordMessage(urlWebhook, justString)
