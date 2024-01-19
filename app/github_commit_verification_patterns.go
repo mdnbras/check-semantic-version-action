@@ -15,16 +15,45 @@ import (
 	"strings"
 )
 
+type PullRequest struct {
+	Url    string `json:"url"`
+	Id     int    `json:"id"`
+	Number int    `json:"number"`
+	State  string `json:"state"`
+	Locked bool   `json:"locked"`
+	Title  string `json:"title"`
+	User   struct {
+		Login             string `json:"login"`
+		Id                int    `json:"id"`
+		NodeId            string `json:"node_id"`
+		AvatarUrl         string `json:"avatar_url"`
+		GravatarId        string `json:"gravatar_id"`
+		Url               string `json:"url"`
+		HtmlUrl           string `json:"html_url"`
+		FollowersUrl      string `json:"followers_url"`
+		FollowingUrl      string `json:"following_url"`
+		GistsUrl          string `json:"gists_url"`
+		StarredUrl        string `json:"starred_url"`
+		SubscriptionsUrl  string `json:"subscriptions_url"`
+		OrganizationsUrl  string `json:"organizations_url"`
+		ReposUrl          string `json:"repos_url"`
+		EventsUrl         string `json:"events_url"`
+		ReceivedEventsUrl string `json:"received_events_url"`
+		Type              string `json:"type"`
+		SiteAdmin         bool   `json:"site_admin"`
+	} `json:"user"`
+}
+
+var owner, _ = core.GetInput("owner")
+var repo, _ = core.GetInput("repository")
+var accessToken, _ = core.GetInput("gbtoken")
+var prNumberStr, _ = core.GetInput("mergeRequestId")
+var bypass, _ = core.GetInput("bypass")
+var urlWebhook, _ = core.GetInput("urlWebhook")
+var regexPattern, _ = core.GetInput("regexPattern")
+var prNumber, _ = strconv.Atoi(prNumberStr)
+
 func CommitVerificationPatterns() {
-
-	owner, _ := core.GetInput("owner")
-	repo, _ := core.GetInput("repository")
-	accessToken, _ := core.GetInput("gbtoken")
-	prNumberStr, _ := core.GetInput("mergeRequestId")
-	bypass, _ := core.GetInput("bypass")
-	urlWebhook, _ := core.GetInput("urlWebhook")
-
-	prNumber, _ := strconv.Atoi(prNumberStr)
 
 	if bypass == "YES" {
 		return
@@ -41,12 +70,6 @@ func CommitVerificationPatterns() {
 	// Criação do cliente GitHub
 	client := github.NewClient(tc)
 
-	pr, _, err := client.PullRequests.Get(ctx, owner, repo, prNumber)
-	if err != nil {
-		fmt.Printf("Erro ao obter Pull Request: %v\n", err)
-		os.Exit(1)
-	}
-
 	// Obtém a lista de commits do Pull Request
 	commits, _, err := client.PullRequests.ListCommits(ctx, owner, repo, prNumber, nil)
 	if err != nil {
@@ -56,7 +79,11 @@ func CommitVerificationPatterns() {
 
 	var commitsArr []string
 
-	commitsArr = append(commitsArr, fmt.Sprintf("PR Aberta Por: %v", pr.User.Login))
+	userLogin, err := GetUserOfPR(owner, repo, prNumber)
+	if err != nil {
+		return
+	}
+	commitsArr = append(commitsArr, fmt.Sprintf("PR Aberta Por: %s", userLogin))
 
 	existsErro := false
 
@@ -132,4 +159,47 @@ func sendDiscordMessage(urlWebhook string, commitMessage string) {
 		return
 	}
 	fmt.Println(string(body))
+}
+
+func GetUserOfPR(owner string, repository string, prNumber int) (string, error) {
+
+	url := fmt.Sprintf("https://api.github.com/repos/%s/%s/pulls/%v", owner, repository, prNumber)
+	method := "GET"
+
+	client := &http.Client{}
+	req, err := http.NewRequest(method, url, nil)
+
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	req.Header.Add("Authorization", "token "+accessToken)
+
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(res.Body)
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	//fmt.Println(string(body))
+
+	var pullRequest PullRequest
+
+	if err = json.Unmarshal(body, &pullRequest); err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+
+	return pullRequest.User.Login, nil
 }
