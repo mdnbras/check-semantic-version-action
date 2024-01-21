@@ -9,8 +9,8 @@ The GitOps Manager Utility is a powerful tool designed to simplify and automate 
     uses: mdnbras/check-semantic-version-action@v1
     with:
       command: 'commits-verify' # command
-      owner: 'encibralabs' # github owner
-      repository: 'gapus-frontend' # github repository
+      owner: 'owner' # github owner
+      repository: 'repository' # github repository
       mergeRequestId: 10 # Merge request identifier
       gbtoken: '' # access personal token
       bypass: 'YES' # YES or NO
