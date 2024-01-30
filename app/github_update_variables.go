@@ -3,18 +3,18 @@ package app
 import (
 	"bytes"
 	"fmt"
-	"github.com/urfave/cli"
+	"github.com/actions-go/toolkit/core"
 	"io"
 	"net/http"
 	"os"
 )
 
-func updateGithubVars(c *cli.Context) {
-	owner := c.String("owner")
-	repository := c.String("repository")
-	varName := c.String("varName")
-	varValue := c.String("varValue")
-	gbtoken := c.String("gbtoken")
+var repository, _ = core.GetInput("repository")
+var varName, _ = core.GetInput("varName")
+var varValue, _ = core.GetInput("varName")
+var gbtoken, _ = core.GetInput("gbtoken")
+
+func UpdateGithubVars() {
 
 	apiUrl := fmt.Sprintf("https://api.github.com/repos/%s/%s/actions/variables/%s", owner, repository, varName)
 	userData := []byte(`{"name":"` + varName + `","value":"` + varValue + `"}`)
@@ -46,6 +46,6 @@ func updateGithubVars(c *cli.Context) {
 	}(response.Body)
 
 	if response.StatusCode == http.StatusNoContent {
-		fmt.Println("Update realizado com sucesso!")
+		fmt.Println("::debug::Atualização realizada com sucesso!")
 	}
 }

@@ -28,3 +28,17 @@ The GitOps Manager Utility is a powerful tool designed to simplify and automate 
       versionOld: '' # Old Semantic Version
       versionNew: '' # New Semantic Version
 ```
+
+### update-github-vars
+
+```yaml
+  - name: Update Current Version
+    uses: mdnbras/check-semantic-version-action@v1
+    with:
+      command: 'update-github-vars' # command
+      owner: 'owner' # github owner
+      repository: 'repository' # github repository
+      varName: '' # name of the variable
+      varValue: '' # your actual version
+      gbtoken: '' # access personal token
+```

@@ -18,5 +18,7 @@ func main() {
 		app.CommitVerificationPatterns()
 	case "version-verify":
 		app.VersionVerify()
+	case "update-github-vars":
+		app.UpdateGithubVars()
 	}
 }
