@@ -11,7 +11,7 @@ import (
 
 var repository, _ = core.GetInput("repository")
 var varName, _ = core.GetInput("varName")
-var varValue, _ = core.GetInput("varName")
+var varValue, _ = core.GetInput("varValue")
 var gbtoken, _ = core.GetInput("gbtoken")
 
 func UpdateGithubVars() {
