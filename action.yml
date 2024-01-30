@@ -9,20 +9,24 @@ inputs:
     required: true
   owner:
     description: 'Github username'
-    required: true
+    required: false
+    default: ''
   repository:
     description: 'Github repository name'
-    required: true
+    required: false
+    default: ''
   mergeRequestId:
     description: 'Github current merge request identifier'
-    required: true
+    required: false
+    default: ''
   bypass:
     description: 'bypass of execution of command'
     required: false
     default: 'NO'
   gbtoken:
     description: 'Github your personal access token'
-    required: true
+    required: false
+    default: ''
   urlWebhook:
     description: 'Discord chat webhook'
     required: false
@@ -31,6 +35,14 @@ inputs:
     description: 'Regex pattern to match commits'
     required: false
     default: '(feat|chore|refactor|style|fix|docs|doc|build|perf|ci|revert)([\(])([\#0-9]+)([\)\: ]+)(\W|\w)+'
+  versionOld:
+    description: 'Old Semantic version'
+    required: false
+    default: ''
+  versionNew:
+    description: 'New Semantic version'
+    required: false
+    default: ''
 runs:
   using: docker
   image: Dockerfile

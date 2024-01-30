@@ -3,8 +3,8 @@ package app
 import (
 	"errors"
 	"fmt"
+	"github.com/actions-go/toolkit/core"
 	"github.com/hashicorp/go-version"
-	"github.com/urfave/cli"
 	"os"
 	"strings"
 )
@@ -30,10 +30,10 @@ func checkVersion(versionOld string, versionNew string) (bool, error) {
 	return false, errors.New("versão atual é menor ou igual a versão anterior")
 }
 
-func verificarVersao(c *cli.Context) {
-	versionOld := c.String("versionOld")
-	versionNew := c.String("versionNew")
+var versionOld, _ = core.GetInput("versionOld")
+var versionNew, _ = core.GetInput("versionNew")
 
+func VersionVerify() {
 	_, erro := checkVersion(versionOld, versionNew)
 
 	if erro != nil {

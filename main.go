@@ -16,5 +16,7 @@ func main() {
 	switch command {
 	case "commits-verify":
 		app.CommitVerificationPatterns()
+	case "version-verify":
+		app.VersionVerify()
 	}
 }

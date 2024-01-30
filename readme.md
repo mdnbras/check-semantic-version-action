@@ -17,3 +17,14 @@ The GitOps Manager Utility is a powerful tool designed to simplify and automate 
       urlWebhook: '' # Discord webhook URL (optional)
       regexPattern: '' # regex pattern (optional)
 ```
+
+### version-verify
+
+```yaml
+  - name: Check Semantic Version
+    uses: mdnbras/check-semantic-version-action@v1
+    with:
+      command: 'version-verify' # command
+      versionOld: '' # Old Semantic Version
+      versionNew: '' # New Semantic Version
+```
